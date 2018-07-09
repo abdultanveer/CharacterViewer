@@ -1,9 +1,11 @@
-package com.xfinity.characterviewer;
+package com.xfinity.characterviewer.ui.characterlist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.xfinity.characterviewer.R;
+
+public class CharacterListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

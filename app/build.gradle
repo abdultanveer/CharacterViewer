@@ -17,6 +17,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets{
+        main{
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/activities',
+                            'src/main/res/layouts/fragments',
+                            'src/main/res/layouts/toolbars',
+                            'src/main/res/layouts/singlewidget',
+                            'src/main/res/layouts',
+                            'src/main/res'
+
+                    ]
+        }
+    }
     flavorDimensions "character"
     productFlavors {
         simpsonviewer {
