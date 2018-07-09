@@ -30,11 +30,11 @@
 
         <fragment
             android:id="@+id/fragmentItemList"
-            android:name="com.example.ray2017.maaddemo.ui.characterlist.CharacterListFragment"
+            android:name="com.xfinity.characterviewer.ui.characterlist.CharacterListFragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            tools:layout="@layout/fragment_items_list" />
+            tools:layout="@layout/fragment_character_list" />
 
         <View
             android:layout_width="1dp"

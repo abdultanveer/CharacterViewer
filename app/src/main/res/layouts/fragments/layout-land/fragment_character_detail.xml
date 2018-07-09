@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="I'm description"
         android:textColor="#000"
         android:textSize="20sp"

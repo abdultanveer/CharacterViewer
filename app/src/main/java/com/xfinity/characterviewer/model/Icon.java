@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+/**
+ * @Icon contains the image information about a character
+ */
 public class Icon implements Serializable{
 
 
@@ -22,7 +25,7 @@ public class Icon implements Serializable{
 
     /**
      * 
-     * @param uRL
+     * @param uRL character image URL
      */
     public Icon(String uRL) {
         super();

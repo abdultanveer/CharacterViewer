@@ -1,4 +1,3 @@
-
 package com.xfinity.characterviewer.model;
 
 import com.google.gson.annotations.Expose;
@@ -6,7 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class RelatedTopic implements Serializable{
+/**
+ * @ShowCharacter gives the information of characters in Simpsons show or the GTO shows
+ */
+public class ShowCharacter implements Serializable{
 
 
     @SerializedName("Text")
@@ -31,7 +33,7 @@ public class RelatedTopic implements Serializable{
      * No args constructor for use in serialization
      * 
      */
-    public RelatedTopic() {
+    public ShowCharacter() {
     }
 
     /**
@@ -39,7 +41,7 @@ public class RelatedTopic implements Serializable{
      * @param icon
      * @param text
      */
-    public RelatedTopic(String text,  Icon icon) {
+    public ShowCharacter(String text, Icon icon) {
         super();
         this.text = text;
         this.icon = icon;
@@ -49,11 +51,18 @@ public class RelatedTopic implements Serializable{
         return text;
     }
 
+    /**
+     *
+     * @param text description contains title and detail
+     */
     public void setText(String text) {
         this.text = text;
     }
 
-
+    /**
+     *
+     * @return an Icon object
+     */
     public Icon getIcon() {
         return icon;
     }
