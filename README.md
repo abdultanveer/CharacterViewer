@@ -22,4 +22,4 @@ Initialization of Character Viewer Project
   
 ** Use this app **
   1. Please make sure the wifi is turned on when you use it, offline support is not provided.
-  2. Better to use android version over 7.0 to it
+  2. Better to use android version over 7.0 for it
