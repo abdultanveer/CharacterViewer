@@ -1,13 +1,15 @@
 package com.xfinity.characterviewer.ui.characterlist;
 
-import com.xfinity.characterviewer.data.source.CharacterRepository;
 import com.xfinity.characterviewer.model.CharacterSet;
+import com.xfinity.characterviewer.source.CharacterRepository;
+
+import javax.inject.Inject;
 
 /**
  * CharacterListPresenter is the presenter responsible for character list fragment.
  */
 public class CharacterListPresenter implements CharacterListContract.IPresenter, CharacterRepository.CharacterDataListener{
-    private CharacterListFragment listFragmentRef;
+    private CharacterListContract.IView listFragmentRef;
     private CharacterRepository mCharacterRepository;
 
     /**
@@ -15,9 +17,14 @@ public class CharacterListPresenter implements CharacterListContract.IPresenter,
      * @param listFragmentRef a reference to ListFragment
      * @param characterRepository an instance of CharacterRepository
      */
-    public CharacterListPresenter(CharacterListFragment listFragmentRef, CharacterRepository characterRepository) {
+    @Inject
+    public CharacterListPresenter(CharacterListContract.IView listFragmentRef, CharacterRepository characterRepository) {
         this.listFragmentRef = listFragmentRef;
         mCharacterRepository = characterRepository;
+    }
+
+    public CharacterListPresenter(CharacterListFragment listFragmentRef) {
+        this.listFragmentRef = listFragmentRef;
     }
 
     @Override

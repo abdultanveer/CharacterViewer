@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="iconImage">Show Character Icon Image</string>
+    <string name="class_cast_exception">must implement CharacterListFragment.OnItemSelectedListener</string>
 </resources>

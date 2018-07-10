@@ -16,12 +16,25 @@ public class Icon implements Serializable{
     @Expose
     private String uRL;
 
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Icon() {
+    }
+
+    /**
+     * 
+     * @param uRL character image URL
+     */
+    public Icon(String uRL) {
+        super();
+        this.uRL = uRL;
+    }
+
     public String getURL() {
         return uRL;
     }
 
 
-    public void setuRL(String uRL) {
-        this.uRL = uRL;
-    }
 }

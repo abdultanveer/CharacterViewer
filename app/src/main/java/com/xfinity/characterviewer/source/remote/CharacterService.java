@@ -1,4 +1,4 @@
-package com.xfinity.characterviewer.data.source.remote;
+package com.xfinity.characterviewer.source.remote;
 
 import com.xfinity.characterviewer.model.CharacterSet;
 
@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Url;
 
 /**
- * This interface provides methods to request ShowCharacter Set from server
+ * CharacterService provides methods to request ShowCharacter Set from server
  */
 public interface CharacterService {
     @GET

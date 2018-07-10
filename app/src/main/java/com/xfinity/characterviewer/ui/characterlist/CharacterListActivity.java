@@ -23,13 +23,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 /**
- * This is the CharacterListActivity, it is the launcher activity.
+ * CharacterListActivity is the Activity shows A list of Characters in either grid or list views
  */
 public class CharacterListActivity extends AppCompatActivity implements CharacterListFragment.OnItemSelectedListener{
-    private static final String TAG = CharacterListActivity.class.getSimpleName();
-    private Toolbar toolbar;
-    private TextView appName;
-    private ToggleButton mToggleButton;
+    public static final String TAG = CharacterListActivity.class.getSimpleName();
+    Toolbar toolbar;
+    TextView appName;
+    ToggleButton mToggleButton;
     private boolean isTwoPane = false;
 
     @Override
@@ -48,12 +48,13 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
     /**
      * This method determines if a device is tablet or phone by checking the returned FrameLayout instance.
      * For CharacterListActivity, it does not have an instance of FrameLayout with flDetailContainer as ID here;
-     * For the tablet using the large activit_character_list, it has an instance of FrameLayout with flDetailContainer as ID here.
+     * For the tablet using the large activity_character_list, it has an instance of FrameLayout with flDetailContainer as ID here.
      */
     private void determinePaneLayout() {
         FrameLayout fragmentItemDetail = findViewById(R.id.flDetailContainer);
         if (fragmentItemDetail != null) {
             isTwoPane = true;
+            CharacterListFragment fragmentItemsList = (CharacterListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentItemList);
         } else {
             mToggleButton = findViewById(R.id.toggle);
             mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -80,7 +81,7 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
         String url = ((ShowCharacter) item).getIcon().getURL();
         if (isTwoPane) {
             CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url, CharacterListActivity.this);
-            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.flDetailContainer, fragmentItem).commit();
         } else {
             Intent i = new Intent(this, CharacterDetailActivity.class);

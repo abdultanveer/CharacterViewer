@@ -1,6 +1,7 @@
-package com.xfinity.characterviewer.data.source.local;
+package com.xfinity.characterviewer.source.local;
 
-import com.xfinity.characterviewer.data.source.CharacterDataSource;
+
+import com.xfinity.characterviewer.source.CharacterDataSource;
 
 /**
  * CharacterLocalDataSource is the class deals with local data

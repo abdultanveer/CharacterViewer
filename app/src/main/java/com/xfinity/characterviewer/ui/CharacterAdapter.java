@@ -14,20 +14,24 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.xfinity.characterviewer.R;
+import com.xfinity.characterviewer.di.qualifier.ActivityContext;
+import com.xfinity.characterviewer.di.scope.PerFragment;
 import com.xfinity.characterviewer.model.ShowCharacter;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- * CharacterAdapter is the generic adapter for both list view and gridview.
+ * CharacterAdapter is the generic adapter for both list view and grid view.
  */
+@PerFragment
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
     private final static int GRID_VIEW = 0;
     private final static int LIST_VIEW = 1;
-    private List<ShowCharacter> dataSource;
-    private RecyclerViewClickListener listener;
-    private Context mContext;
+
     /**
      *
      * @param dataSource ShowCharacter DataSource from server
@@ -36,21 +40,18 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         this.dataSource = dataSource;
     }
 
-    /**
-     *
-     * @param listener Recyclerview click listener
-     */
     public void setListener(RecyclerViewClickListener listener) {
         this.listener = listener;
     }
 
-    public void setContext(Context context) {
+
+    private List<ShowCharacter> dataSource;
+    private RecyclerViewClickListener listener;
+    private Context mContext;
+
+    @Inject
+    public CharacterAdapter(@ActivityContext Context context){
         mContext = context;
-
-    }
-
-    public CharacterAdapter(){
-
     }
 
     public CharacterAdapter(List<ShowCharacter> dataSource, RecyclerViewClickListener listener, Context mContext) {
