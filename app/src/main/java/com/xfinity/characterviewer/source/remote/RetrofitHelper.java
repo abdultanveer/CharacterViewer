@@ -13,8 +13,6 @@ import retrofit2.Retrofit;
 @Singleton
 public class RetrofitHelper {
     private Retrofit retrofit;
-
-
     @Inject
     public RetrofitHelper(Retrofit retrofit) {
         this.retrofit = retrofit;

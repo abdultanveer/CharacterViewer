@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * @CharacterSet contains all the character information from server.
+ * CharacterSet contains all the character information from server.
  */
 public class CharacterSet {
     @SerializedName("RelatedTopics")
