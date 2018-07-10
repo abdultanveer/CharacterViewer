@@ -21,4 +21,7 @@ public class Icon implements Serializable{
     }
 
 
+    public void setuRL(String uRL) {
+        this.uRL = uRL;
+    }
 }

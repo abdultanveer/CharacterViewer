@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import java.util.List;
  * CharacterListFragment is the fragment which actually resides in activity to show a list of characters
  */
 public class CharacterListFragment extends Fragment implements CharacterAdapter.RecyclerViewClickListener,CharacterListContract.IView {
-    private static final String TAG = "CharacterListFragment";
+    private static final String TAG = CharacterListFragment.class.getSimpleName();
     private List<ShowCharacter> dataSource;
     private CharacterListPresenter mCharacterListPresenter;
     private CharacterAdapter adapter;
@@ -43,6 +44,7 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     public void onEvent(Boolean b){
         for(ShowCharacter topic:dataSource) topic.setUseGrid(b);
         if(b){
+            Log.i(TAG, "Button Toggled");
             this.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         }else{
             this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -84,7 +86,7 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     /**
      * Request Character Data from Presenter
      */
-    void makeRequest() {
+    private void makeRequest() {
         mCharacterListPresenter.requestCharacterData();
     }
     @Override

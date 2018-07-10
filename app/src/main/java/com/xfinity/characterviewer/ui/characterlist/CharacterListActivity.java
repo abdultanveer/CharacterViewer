@@ -26,7 +26,7 @@ import java.util.List;
  * This is the CharacterListActivity, it is the launcher activity.
  */
 public class CharacterListActivity extends AppCompatActivity implements CharacterListFragment.OnItemSelectedListener{
-    public static final String TAG = CharacterListActivity.class.getSimpleName();
+    private static final String TAG = CharacterListActivity.class.getSimpleName();
     private Toolbar toolbar;
     private TextView appName;
     private ToggleButton mToggleButton;
@@ -54,7 +54,6 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
         FrameLayout fragmentItemDetail = findViewById(R.id.flDetailContainer);
         if (fragmentItemDetail != null) {
             isTwoPane = true;
-            CharacterListFragment fragmentItemsList = (CharacterListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentItemList);
         } else {
             mToggleButton = findViewById(R.id.toggle);
             mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

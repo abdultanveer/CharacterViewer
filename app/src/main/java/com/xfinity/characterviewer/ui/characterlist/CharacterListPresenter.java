@@ -20,10 +20,6 @@ public class CharacterListPresenter implements CharacterListContract.IPresenter,
         mCharacterRepository = characterRepository;
     }
 
-    public CharacterListPresenter(CharacterListFragment listFragmentRef) {
-        this.listFragmentRef = listFragmentRef;
-    }
-
     @Override
     public void requestCharacterData() {
         mCharacterRepository.requestCharacterData(this);

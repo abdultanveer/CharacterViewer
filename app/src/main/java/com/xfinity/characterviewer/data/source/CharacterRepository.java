@@ -20,7 +20,7 @@ public class CharacterRepository {
      * This is a constructor
      * @param charactersRemoteDataSource an remote datasource Instance
      */
-    public CharacterRepository(CharacterRemoteDataSource charactersRemoteDataSource) {
+    private CharacterRepository(CharacterRemoteDataSource charactersRemoteDataSource) {
         this.mCharactersRemoteDataSource = charactersRemoteDataSource;
     }
 
