@@ -17,7 +17,6 @@ Initialization of Character Viewer Project
   6. EventBus
   7. Master Detail Pattern
   8. Fragments
-  9. MVP pattern
   10. Material Design
   
   
@@ -32,4 +31,9 @@ Initialization of Character Viewer Project
 ![Alt text](phone_list_page.PNG?raw=true "Title")
 ![Alt text](phone_grid_page.PNG?raw=true "Title")
 ![Alt text](phone_detail_page.PNG?raw=true "Title")
+![Alt text](phone_grid_wire_page.PNG?raw=true "Title")
+![Alt text](phone_land_wire_grid.PNG?raw=true "Title")
+![Alt text](phone_land_wire_detail.PNG?raw=true "Title")
+![Alt text](phone_wire_portrait_detail.PNG?raw=true "Title")
 ![Alt text](tablet_master_detail.PNG?raw=true "Title")
+![Alt text](tablet_simpson_page.PNG?raw=true "Title")
