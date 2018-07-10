@@ -26,7 +26,7 @@ Initialization of Character Viewer Project
   3. Toggle the grid button on the top right, you will see the list changes between grid view and list view
   4. When you rotate the screen, the app will also rotate without crash.
   
-## Here are some screenshots in case you don't want to run the app yourself:
+## Here are some screenshots in case you don't want to run the app yourself (I used Nexus 10 with API 27 and Nexus 6 with API 26 here for these images):
 
 ![Alt text](phone_list_page.PNG?raw=true "Title")
 ![Alt text](phone_grid_page.PNG?raw=true "Title")
