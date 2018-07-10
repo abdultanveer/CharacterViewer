@@ -20,12 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @CharacterAdapter is the generic adapter for both list view and gridview.
+ * CharacterAdapter is the generic adapter for both list view and gridview.
  */
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
     private final static int GRID_VIEW = 0;
     private final static int LIST_VIEW = 1;
-
+    private List<ShowCharacter> dataSource;
+    private RecyclerViewClickListener listener;
+    private Context mContext;
     /**
      *
      * @param dataSource ShowCharacter DataSource from server
@@ -34,6 +36,10 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         this.dataSource = dataSource;
     }
 
+    /**
+     *
+     * @param listener Recyclerview click listener
+     */
     public void setListener(RecyclerViewClickListener listener) {
         this.listener = listener;
     }
@@ -42,10 +48,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         mContext = context;
 
     }
-
-    private List<ShowCharacter> dataSource;
-    private RecyclerViewClickListener listener;
-    private Context mContext;
 
     public CharacterAdapter(){
 

@@ -4,7 +4,7 @@ import com.xfinity.characterviewer.data.source.CharacterRepository;
 import com.xfinity.characterviewer.model.CharacterSet;
 
 /**
- * @CharacterListPresenter is the presenter responsible for character list fragment.
+ * CharacterListPresenter is the presenter responsible for character list fragment.
  */
 public class CharacterListPresenter implements CharacterListContract.IPresenter, CharacterRepository.CharacterDataListener{
     private CharacterListFragment listFragmentRef;
@@ -12,7 +12,7 @@ public class CharacterListPresenter implements CharacterListContract.IPresenter,
 
     /**
      *
-     * @param listFragmentRef a reference to ListFramgent
+     * @param listFragmentRef a reference to ListFragment
      * @param characterRepository an instance of CharacterRepository
      */
     public CharacterListPresenter(CharacterListFragment listFragmentRef, CharacterRepository characterRepository) {

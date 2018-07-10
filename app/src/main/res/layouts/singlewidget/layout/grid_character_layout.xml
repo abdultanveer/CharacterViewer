@@ -10,6 +10,7 @@
     app:cardCornerRadius="4dp">
 
     <ImageView
+        android:contentDescription="@string/iconImage"
         android:id="@+id/characterImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

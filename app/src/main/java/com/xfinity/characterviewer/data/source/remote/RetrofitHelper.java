@@ -8,11 +8,15 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * @RetrofitHelper is a singleton class provides ShowCharacter Service instance
+ * RetrofitHelper is a singleton class provides ShowCharacter Service instance
  */
 public class RetrofitHelper {
     private static RetrofitHelper retrofitHelper = null;
 
+    /**
+     *
+     * @return an instance of RetrofitHelper
+     */
     public static RetrofitHelper getRetrofitHelper(){
         if(retrofitHelper==null)
             retrofitHelper = new RetrofitHelper();

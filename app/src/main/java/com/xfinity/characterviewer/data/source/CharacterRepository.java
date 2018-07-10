@@ -11,7 +11,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- *@CharacterRepository manages the remote datasource and communicate with presenters
+ *CharacterRepository manages the remote datasource and communicate with presenters
  */
 public class CharacterRepository {
     private CharacterRemoteDataSource mCharactersRemoteDataSource;

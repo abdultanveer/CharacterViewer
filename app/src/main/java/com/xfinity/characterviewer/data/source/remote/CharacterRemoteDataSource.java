@@ -3,7 +3,7 @@ package com.xfinity.characterviewer.data.source.remote;
 import com.xfinity.characterviewer.data.source.CharacterDataSource;
 
 /**
- * @CharacerRemoteDataSource provides CharacterService by accessing RetrofitHelper
+ * CharacerRemoteDataSource provides CharacterService by accessing RetrofitHelper
  */
 public class CharacterRemoteDataSource implements CharacterDataSource.RemoteCharacterCallback {
     private RetrofitHelper mRetrofitHelper;

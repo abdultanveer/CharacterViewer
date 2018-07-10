@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Url;
 
 /**
- * @CharacterService provides methods to request ShowCharacter Set from server
+ * This interface provides methods to request ShowCharacter Set from server
  */
 public interface CharacterService {
     @GET

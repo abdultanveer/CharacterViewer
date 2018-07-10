@@ -2,16 +2,14 @@ package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 
 import com.xfinity.characterviewer.R;
 import com.xfinity.characterviewer.data.source.CharacterRepository;
@@ -26,11 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @CharacterListFragment is the fragment which actually resides in activity to show a list of characters
+ * CharacterListFragment is the fragment which actually resides in activity to show a list of characters
  */
 public class CharacterListFragment extends Fragment implements CharacterAdapter.RecyclerViewClickListener,CharacterListContract.IView {
     private static final String TAG = "CharacterListFragment";
-    List<ShowCharacter> dataSource;
+    private List<ShowCharacter> dataSource;
     private CharacterListPresenter mCharacterListPresenter;
     private CharacterAdapter adapter;
     private RecyclerView recyclerView;
@@ -75,7 +73,7 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_character_list, container, false);
         recyclerView = view.findViewById(R.id.rvItems);
         makeRequest();

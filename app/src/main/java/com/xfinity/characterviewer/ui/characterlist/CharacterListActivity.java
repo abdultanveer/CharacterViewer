@@ -1,15 +1,11 @@
 package com.xfinity.characterviewer.ui.characterlist;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.util.Log;
-import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -27,13 +23,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 /**
- * @CharacterListActivity is the Activity shows A list of Characters in either grid or list views
+ * This is the CharacterListActivity, it is the launcher activity.
  */
 public class CharacterListActivity extends AppCompatActivity implements CharacterListFragment.OnItemSelectedListener{
     public static final String TAG = CharacterListActivity.class.getSimpleName();
-    Toolbar toolbar;
-    TextView appName;
-    ToggleButton mToggleButton;
+    private Toolbar toolbar;
+    private TextView appName;
+    private ToggleButton mToggleButton;
     private boolean isTwoPane = false;
 
     @Override
@@ -65,9 +61,9 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        EventBus.getDefault().post(new Boolean(true));
+                        EventBus.getDefault().post(true);
                     } else {
-                        EventBus.getDefault().post(new Boolean(false));
+                        EventBus.getDefault().post(false);
                     }
                 }
             });

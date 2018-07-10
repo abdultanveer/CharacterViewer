@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.xfinity.characterviewer.R;
 
 /**
- * @CharacterDetailActivity is the activity only responsible for
+ * CharacterDetailActivity is the activity only responsible for
  * showing detail of a chosen character, it contains a Detail Fragment.
  */
 public class CharacterDetailActivity extends AppCompatActivity {

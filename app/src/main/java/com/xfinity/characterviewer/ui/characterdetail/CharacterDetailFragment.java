@@ -1,8 +1,12 @@
 package com.xfinity.characterviewer.ui.characterdetail;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +17,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.xfinity.characterviewer.BuildConfig;
 import com.xfinity.characterviewer.R;
 
 /**
- * @CharacterDetailFragment is the fragment contains character Details
+ * CharacterDetailFragment is the fragment contains character Details
  */
 public class CharacterDetailFragment extends Fragment {
     private String imageUrl;
@@ -26,6 +33,7 @@ public class CharacterDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getArguments() != null;
         this.imageUrl = getArguments().getString("url");
         this.characterDetail = getArguments().getString("content");
         this.characterTitle = getArguments().getString("title");
@@ -56,7 +64,7 @@ public class CharacterDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_character_detail,
                 container, false);

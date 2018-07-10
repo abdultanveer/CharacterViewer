@@ -6,11 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * @ShowCharacter gives the information of characters in Simpsons show or the GTO shows
+ * ShowCharacter gives the information of characters in Simpsons show or the GTO shows
  */
 public class ShowCharacter implements Serializable{
-
-
     @SerializedName("Text")
     @Expose
     private String text;
@@ -28,24 +26,6 @@ public class ShowCharacter implements Serializable{
     }
 
     private boolean useGrid = false;
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public ShowCharacter() {
-    }
-
-    /**
-     * 
-     * @param icon
-     * @param text
-     */
-    public ShowCharacter(String text, Icon icon) {
-        super();
-        this.text = text;
-        this.icon = icon;
-    }
 
     public String getText() {
         return text;
