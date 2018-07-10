@@ -1,4 +1,4 @@
-package com.xfinity.characterviewer.data.source;
+package com.xfinity.characterviewer.source;
 
 /**
  * CharacterDataSource is a DataSource Holder class for future extension

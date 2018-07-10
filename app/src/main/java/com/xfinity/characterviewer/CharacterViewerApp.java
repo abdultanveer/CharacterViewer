@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.xfinity.characterviewer.di.component.AppComponent;
+import com.xfinity.characterviewer.di.component.DaggerAppComponent;
 import com.xfinity.characterviewer.di.module.AppModule;
 
 

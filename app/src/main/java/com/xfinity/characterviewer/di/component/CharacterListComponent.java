@@ -4,7 +4,6 @@ import com.xfinity.characterviewer.di.module.CharacterListModule;
 import com.xfinity.characterviewer.di.scope.PerFragment;
 import com.xfinity.characterviewer.ui.characterlist.CharacterListFragment;
 
-
 import dagger.Component;
 
 @PerFragment

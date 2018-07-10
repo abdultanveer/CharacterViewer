@@ -3,9 +3,9 @@ package com.xfinity.characterviewer.di.module;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.xfinity.characterviewer.data.source.CharacterRepository;
 import com.xfinity.characterviewer.di.qualifier.ActivityContext;
 import com.xfinity.characterviewer.di.scope.PerFragment;
+import com.xfinity.characterviewer.source.CharacterRepository;
 import com.xfinity.characterviewer.ui.characterlist.CharacterListContract;
 import com.xfinity.characterviewer.ui.characterlist.CharacterListFragment;
 import com.xfinity.characterviewer.ui.characterlist.CharacterListPresenter;

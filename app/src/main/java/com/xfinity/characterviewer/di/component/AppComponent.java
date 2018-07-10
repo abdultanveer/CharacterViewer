@@ -1,10 +1,10 @@
 package com.xfinity.characterviewer.di.component;
 
+
 import com.xfinity.characterviewer.CharacterViewerApp;
-import com.xfinity.characterviewer.data.source.CharacterRepository;
 import com.xfinity.characterviewer.di.module.AppModule;
 import com.xfinity.characterviewer.di.scope.PerApplication;
-
+import com.xfinity.characterviewer.source.CharacterRepository;
 
 import javax.inject.Singleton;
 

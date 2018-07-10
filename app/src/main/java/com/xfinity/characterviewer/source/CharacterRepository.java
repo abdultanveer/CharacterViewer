@@ -1,8 +1,10 @@
-package com.xfinity.characterviewer.data.source;
+package com.xfinity.characterviewer.source;
 
-import com.xfinity.characterviewer.data.source.remote.CharacterRemoteDataSource;
-import com.xfinity.characterviewer.data.source.remote.RetrofitHelper;
 import com.xfinity.characterviewer.model.CharacterSet;
+import com.xfinity.characterviewer.source.remote.CharacterRemoteDataSource;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -11,26 +13,19 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- *CharacterRepository manages the remote datasource and communicate with presenters
+ *CharacterRepository manages the remote data source and communicate with presenters
  */
+@Singleton
 public class CharacterRepository {
     private CharacterRemoteDataSource mCharactersRemoteDataSource;
 
     /**
      * This is a constructor
-     * @param charactersRemoteDataSource an remote datasource Instance
+     * @param charactersRemoteDataSource an remote data source Instance
      */
-    private CharacterRepository(CharacterRemoteDataSource charactersRemoteDataSource) {
+    @Inject
+    public CharacterRepository(CharacterRemoteDataSource charactersRemoteDataSource) {
         this.mCharactersRemoteDataSource = charactersRemoteDataSource;
-    }
-
-    /**
-     *
-     * @return an instance of CharacterRepository
-     */
-    public static CharacterRepository getInstance() {
-        CharacterRemoteDataSource remoteDataSource = new CharacterRemoteDataSource(new RetrofitHelper());
-        return new CharacterRepository(remoteDataSource);
     }
 
     /**
