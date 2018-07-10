@@ -24,6 +24,8 @@ Initialization of Character Viewer Project
 ## Use this app 
   1. Please make sure the wifi is turned on when you use it, offline support is not provided yet.
   2. Better to use android version over 7.0 for it
+  3. Toggle the grid button on the top right, you will see the list changes between grid view and list view
+  4. When you rotate the screen, the app will also rotate without crash.
   
 ## Here are some screenshots in case you don't want to run the app yourself:
 
