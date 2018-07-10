@@ -34,6 +34,6 @@ Initialization of Character Viewer Project
 ![Alt text](phone_grid_wire_page.PNG?raw=true "Title")
 ![Alt text](phone_land_wire_grid.PNG?raw=true "Title")
 ![Alt text](phone_land_wire_detail.PNG?raw=true "Title")
-![Alt text](phone_wire_portrait_detail.PNG?raw=true "Title")
-![Alt text](tablet_master_detail.PNG?raw=true "Title")
+![Alt text](phone_wire_portrait_detail.PNG?raw=true "Title" | width=80)
+![Alt text](tablet_master_detail.PNG?raw=true "Title" width=100)
 ![Alt text](tablet_simpson_page.PNG?raw=true "Title")
