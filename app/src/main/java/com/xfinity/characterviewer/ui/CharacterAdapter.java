@@ -31,7 +31,6 @@ import javax.inject.Inject;
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
     private final static int GRID_VIEW = 0;
     private final static int LIST_VIEW = 1;
-
     /**
      *
      * @param dataSource ShowCharacter DataSource from server
@@ -143,4 +142,5 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
             });
         }
     }
+
 }

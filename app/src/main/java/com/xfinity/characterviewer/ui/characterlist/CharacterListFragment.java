@@ -1,11 +1,17 @@
 package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +36,8 @@ import javax.inject.Inject;
 /**
  * CharacterListFragment is the fragment which actually resides in activity to show a list of characters
  */
-public class CharacterListFragment extends Fragment implements CharacterAdapter.RecyclerViewClickListener, CharacterListContract.IView {
+public class CharacterListFragment extends Fragment implements CharacterAdapter.RecyclerViewClickListener, CharacterListContract.IView
+{
     private static final String TAG = "CharacterListFragment";
     List<ShowCharacter> dataSource;
     private RecyclerView recyclerView;
@@ -114,6 +121,33 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
     }
+
+//    @Override
+//    public void triggerAnimationToDetail(View clickedView) {
+//        // save rect of view in screen coordinated
+//        final Rect viewRect = new Rect();
+//        clickedView.getGlobalVisibleRect(viewRect);
+//
+//        TransitionSet set = new TransitionSet()
+//                .addTransition(new Explode().setEpicenterCallback(new Transition.EpicenterCallback() {
+//                    @Override
+//                    public Rect onGetEpicenter(Transition transition) {
+//                        return viewRect;
+//                    }
+//                }).excludeTarget(clickedView, true))
+//                .addTransition(new Fade().addTarget(clickedView))
+//                .addListener(new Transition.TransitionListenerAdapter() {
+//                    @Override
+//                    public void onTransitionEnd(Transition transition) {
+//                        transition.removeListener(this);
+//                        getActivity().onBackPressed();
+//                    }
+//                });
+//        TransitionManager.beginDelayedTransition(recyclerView, set);
+//
+//        // remove all views from Recycler View
+//        recyclerView.setAdapter(null);
+//    }
 
     public interface OnItemSelectedListener {
         void onItemSelected(Object item);
