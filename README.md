@@ -27,7 +27,7 @@ Initialization of Character Viewer Project
   
 ## Here are some screenshots in case you don't want to run the app yourself:
 
-![Alt text](phone_list_page.png?raw=true "Title")
-![Alt text](phone_grid_page.png?raw=true "Title")
-![Alt text](phone_detail_page.png?raw=true "Title")
-![Alt text](tablet_master_detail.png?raw=true "Title")
+![Alt text](phone_list_page.PNG?raw=true "Title")
+![Alt text](phone_grid_page.PNG?raw=true "Title")
+![Alt text](phone_detail_page.PNG?raw=true "Title")
+![Alt text](tablet_master_detail.PNG?raw=true "Title")
