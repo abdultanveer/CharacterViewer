@@ -1,5 +1,12 @@
 # CharacterViewer
 Initialization of Character Viewer Project
+
+# There are 4 branches here:
+  * master: the completed app
+  * mvp: the branch starts mvp 
+  * dagger: the branch starts dagger injection 
+  * animation: the branch strats animation integration
+  
 ## Functionalities of this APP 
   1. Show a list of wire characters or simpsons characters based on flavor chosen in Android Studio
   2. Choose a character to see the detail including image, title and description
