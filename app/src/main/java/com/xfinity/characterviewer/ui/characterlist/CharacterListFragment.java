@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.xfinity.characterviewer.CharacterViewerApp;
 import com.xfinity.characterviewer.R;
@@ -45,10 +46,10 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     @Inject
     LinearLayoutManager layoutManager;
 
-    @Override
-    public void recyclerViewListClicked(View v, int position) {
-        listener.onItemSelected(dataSource.get(position));
-    }
+//    @Override
+//    public void recyclerViewListClicked(View v, int position) {
+//        listener.onItemSelected(dataSource.get(position));
+//    }
 
     @Subscribe
     public void onEvent(Boolean b) {
@@ -115,8 +116,13 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    @Override
+    public void onCharacterItemClicked(int position, ShowCharacter characterItem, /*ImageView*/View v) {
+        listener.onItemSelected(characterItem, v);
+    }
+
     public interface OnItemSelectedListener {
-        void onItemSelected(Object item);
+        void onItemSelected(Object item, /*ImageView*/View characterImg);
     }
 
     @Override

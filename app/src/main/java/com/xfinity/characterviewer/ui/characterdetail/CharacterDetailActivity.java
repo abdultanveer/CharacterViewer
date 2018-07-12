@@ -27,9 +27,10 @@ public class CharacterDetailActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         String content = getIntent().getStringExtra("content");
         String url = getIntent().getStringExtra("url");
+        String imageTransitionName = getIntent().getStringExtra("animation");
         detailTitleTv.setText(title);
         if (savedInstanceState == null) {
-            fragmentItemDetail = CharacterDetailFragment.newInstance(title, content, url,this);
+            fragmentItemDetail = CharacterDetailFragment.newInstance(title, content, url, imageTransitionName,this);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.flDetailContainer, fragmentItemDetail).commit();
         }

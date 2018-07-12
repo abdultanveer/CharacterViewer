@@ -2,12 +2,16 @@ package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -73,14 +77,19 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
         }
     }
 
+    /**
+     * This is the implemented method from interface OnItemSelectedListener in CharacterListFragment.java
+     * @param item the item passed from recyclerViewListClicked(View v, int position); item is the datasource at
+     *             position
+     */
     @Override
-    public void onItemSelected(Object item) {
+    public void onItemSelected(Object item, /*ImageView*/ View v) {
         List<String> details = CharacterAdapter.findTitleDes(((ShowCharacter) item).getText());
         String topicTitle = details.get(0);
         String topicContent = details.get(1);
         String url = ((ShowCharacter) item).getIcon().getURL();
         if (isTwoPane) {
-            CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url, CharacterListActivity.this);
+            CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url, ViewCompat.getTransitionName(v),CharacterListActivity.this);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.flDetailContainer, fragmentItem).commit();
         } else {
@@ -88,7 +97,9 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
             i.putExtra("title", topicTitle);
             i.putExtra("content", topicContent);
             i.putExtra("url", url);
-            startActivity(i);
+            i.putExtra("animation", ViewCompat.getTransitionName(v));
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, ViewCompat.getTransitionName(v));
+            startActivity(i, optionsCompat.toBundle());
         }
     }
 }

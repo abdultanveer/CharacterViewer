@@ -2,6 +2,7 @@ package com.xfinity.characterviewer.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import javax.inject.Inject;
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyViewHolder> {
     private final static int GRID_VIEW = 0;
     private final static int LIST_VIEW = 1;
+    private int layoutRes = 0;
 
     /**
      *
@@ -81,7 +83,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     @NonNull
     @Override
     public CharacterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutRes = 0;
+         //layoutRes = 0;
         switch (viewType) {
             case GRID_VIEW:
                 layoutRes = R.layout.grid_character_layout;
@@ -111,12 +113,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                     .load(dataSource.get(position).getIcon().getURL())
                     .apply(options)
                     .into(holder.titleIv);
-        }else{
+            ViewCompat.setTransitionName(holder.titleIv, dataSource.get(position).getText().substring(0, 8));
+        }else if(holder.titleTv!=null){
             List<String> tx;
             ShowCharacter dataBean = dataSource.get(position);
             tx = findTitleDes(dataBean.getText());
             holder.titleTv.setText(tx.get(0));
+            ViewCompat.setTransitionName(holder.titleTv, dataSource.get(position).getText().substring(0, 8));
+
         }
+        ViewCompat.setTransitionName(holder.itemView, dataSource.get(position).getText().substring(0, 8));
     }
 
     @Override
@@ -125,7 +131,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     }
 
     public interface RecyclerViewClickListener {
-        void recyclerViewListClicked(View v, int position);
+       //void recyclerViewListClicked(View v, int position);
+       void onCharacterItemClicked(int position, ShowCharacter characterItem, View v);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
@@ -138,7 +145,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.recyclerViewListClicked(v, getLayoutPosition());
+                    if(layoutRes==R.layout.grid_character_layout)
+                        listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleIv);
+                    else
+                        listener.onCharacterItemClicked(getAdapterPosition(), dataSource.get(getLayoutPosition()), titleTv);
+                    //listener.recyclerViewListClicked(v, getLayoutPosition());
                 }
             });
         }

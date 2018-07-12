@@ -1,18 +1,18 @@
 package com.xfinity.characterviewer.ui.characterdetail;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.xfinity.characterviewer.R;
 
 /**
@@ -23,6 +23,26 @@ public class CharacterDetailFragment extends Fragment {
     private String characterTitle;
     private String characterDetail;
     private Context mContext;
+    private String imageTransitionName;
+
+    /**
+     * @param title   title of Character
+     * @param content detail of Character
+     * @param url     Image URL of character
+     * @param context activity context
+     * @return an instance of CharacterDetailFragment
+     */
+    public static CharacterDetailFragment newInstance(String title, String content, String url, String imageTransitionName, Context context) {
+        CharacterDetailFragment fragmentDetail = new CharacterDetailFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        args.putString("content", content);
+        args.putString("url", url);
+        args.putString("animation", imageTransitionName);
+        fragmentDetail.setArguments(args);
+        return fragmentDetail;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,30 +50,13 @@ public class CharacterDetailFragment extends Fragment {
         this.imageUrl = getArguments().getString("url");
         this.characterDetail = getArguments().getString("content");
         this.characterTitle = getArguments().getString("title");
+        this.imageTransitionName = getArguments().getString("animation");
     }
 
     @Override
     public void onAttach(Context mContext) {
         super.onAttach(mContext);
         this.mContext = mContext;
-    }
-
-    /**
-     *
-     * @param title title of Character
-     * @param content detail of Character
-     * @param url Image URL of character
-     * @param context activity context
-     * @return an instance of CharacterDetailFragment
-     */
-    public static CharacterDetailFragment newInstance(String title, String content, String url, Context context){
-        CharacterDetailFragment fragmentDetail = new CharacterDetailFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        args.putString("content", content);
-        args.putString("url", url);
-        fragmentDetail.setArguments(args);
-        return fragmentDetail;
     }
 
     @Override
@@ -66,19 +69,31 @@ public class CharacterDetailFragment extends Fragment {
         TextView tvDes = view.findViewById(R.id.itemDescription);
         tvTitle.setText(this.characterTitle);
         tvDes.setText(this.characterDetail);
-        RequestOptions options = new RequestOptions()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            String imageTransition = this.imageTransitionName;
+            ivImage.setTransitionName(imageTransitionName);
+        }
+
+        Picasso.get()
+                .load(String.valueOf(this.imageUrl.isEmpty() ? R.drawable.nophoto : this.imageUrl))
                 .placeholder(R.drawable.nophoto)
-                .error(R.drawable.nophoto)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .priority(Priority.HIGH);
-        Glide.with(mContext)
-                .load(this.imageUrl)
-                .apply(options)
-                .into(ivImage);
+                .noFade()
+                .into(ivImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        ((AppCompatActivity) mContext).supportStartPostponedEnterTransition();
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        ((AppCompatActivity) mContext).supportStartPostponedEnterTransition();
+                    }
+                });
         return view;
     }
+
     @Override
-    public void onDetach(){
+    public void onDetach() {
         super.onDetach();
         mContext = null;
     }
