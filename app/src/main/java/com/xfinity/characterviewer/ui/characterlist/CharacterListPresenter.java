@@ -35,8 +35,7 @@ public class CharacterListPresenter implements CharacterListContract.IPresenter,
 
     @Override
     public void handleCharacterResponse(CharacterSet characterData) {
-        listFragmentRef.setAdapter(characterData);
-        this.listFragmentRef.setAdapter(characterData);
+        this.listFragmentRef.setCharacterAdapter(characterData);
     }
 
     @Override

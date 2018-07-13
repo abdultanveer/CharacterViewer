@@ -7,7 +7,7 @@ import com.xfinity.characterviewer.model.CharacterSet;
  */
 public interface CharacterListContract {
     interface IView{
-        void setAdapter(CharacterSet characterData);
+        void setCharacterAdapter(CharacterSet characterData);
     }
     interface IPresenter{
         void requestCharacterData();

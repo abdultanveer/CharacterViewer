@@ -1,6 +1,7 @@
 package com.xfinity.characterviewer.di.module;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.xfinity.characterviewer.di.qualifier.ActivityContext;
@@ -49,4 +50,7 @@ public class CharacterListModule {
         return new LinearLayoutManager(context);
     }
 
+    @Provides
+    @PerFragment
+    GridLayoutManager providesGridLayoutManager(){ return new GridLayoutManager(context, 2);}
 }

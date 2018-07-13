@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.xfinity.characterviewer.R;
+import com.xfinity.characterviewer.ui.characterlist.CharacterListActivity;
 
 /**
  * CharacterDetailFragment is the fragment contains character Details
@@ -35,10 +36,19 @@ public class CharacterDetailFragment extends Fragment {
     public static CharacterDetailFragment newInstance(String title, String content, String url, String imageTransitionName, Context context) {
         CharacterDetailFragment fragmentDetail = new CharacterDetailFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
-        args.putString("content", content);
-        args.putString("url", url);
-        args.putString("animation", imageTransitionName);
+        args.putString(CharacterListActivity.TITLE, title);
+        args.putString(CharacterListActivity.CONTENT, content);
+        args.putString(CharacterListActivity.URL, url);
+        args.putString(CharacterListActivity.ANIMATION, imageTransitionName);
+        fragmentDetail.setArguments(args);
+        return fragmentDetail;
+    }
+    public static CharacterDetailFragment newInstance(String title, String content, String url, Context context) {
+        CharacterDetailFragment fragmentDetail = new CharacterDetailFragment();
+        Bundle args = new Bundle();
+        args.putString(CharacterListActivity.TITLE, title);
+        args.putString(CharacterListActivity.CONTENT, content);
+        args.putString(CharacterListActivity.URL, url);
         fragmentDetail.setArguments(args);
         return fragmentDetail;
     }
@@ -47,10 +57,10 @@ public class CharacterDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        this.imageUrl = getArguments().getString("url");
-        this.characterDetail = getArguments().getString("content");
-        this.characterTitle = getArguments().getString("title");
-        this.imageTransitionName = getArguments().getString("animation");
+        this.imageUrl = getArguments().getString(CharacterListActivity.URL);
+        this.characterDetail = getArguments().getString(CharacterListActivity.CONTENT);
+        this.characterTitle = getArguments().getString(CharacterListActivity.TITLE);
+        this.imageTransitionName = getArguments().getString(CharacterListActivity.ANIMATION, null);
     }
 
     @Override
@@ -69,8 +79,8 @@ public class CharacterDetailFragment extends Fragment {
         TextView tvDes = view.findViewById(R.id.itemDescription);
         tvTitle.setText(this.characterTitle);
         tvDes.setText(this.characterDetail);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            String imageTransition = this.imageTransitionName;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && this.imageTransitionName!=null) {
+            String imageTransitionName = this.imageTransitionName;
             ivImage.setTransitionName(imageTransitionName);
         }
 
@@ -78,12 +88,11 @@ public class CharacterDetailFragment extends Fragment {
                 .load(String.valueOf(this.imageUrl.isEmpty() ? R.drawable.nophoto : this.imageUrl))
                 .placeholder(R.drawable.nophoto)
                 .noFade()
-                .into(ivImage, new Callback() {
+                .into(ivImage, this.imageTransitionName==null? null: new Callback() {
                     @Override
                     public void onSuccess() {
                         ((AppCompatActivity) mContext).supportStartPostponedEnterTransition();
                     }
-
                     @Override
                     public void onError(Exception e) {
                         ((AppCompatActivity) mContext).supportStartPostponedEnterTransition();

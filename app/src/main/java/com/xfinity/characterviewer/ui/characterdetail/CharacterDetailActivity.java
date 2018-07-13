@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.xfinity.characterviewer.R;
+import com.xfinity.characterviewer.ui.characterlist.CharacterListActivity;
 
 /**
  * CharacterDetailActivity is the activity only responsible for
@@ -24,10 +25,10 @@ public class CharacterDetailActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.detailToolbar);
         setSupportActionBar(mToolbar);
         TextView detailTitleTv = findViewById(R.id.characterTitle);
-        String title = getIntent().getStringExtra("title");
-        String content = getIntent().getStringExtra("content");
-        String url = getIntent().getStringExtra("url");
-        String imageTransitionName = getIntent().getStringExtra("animation");
+        String title = getIntent().getStringExtra(CharacterListActivity.TITLE);
+        String content = getIntent().getStringExtra(CharacterListActivity.CONTENT);
+        String url = getIntent().getStringExtra(CharacterListActivity.URL);
+        String imageTransitionName = getIntent().getStringExtra(CharacterListActivity.ANIMATION);
         detailTitleTv.setText(title);
         if (savedInstanceState == null) {
             fragmentItemDetail = CharacterDetailFragment.newInstance(title, content, url, imageTransitionName,this);

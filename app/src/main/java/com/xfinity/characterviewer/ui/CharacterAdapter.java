@@ -83,7 +83,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     @NonNull
     @Override
     public CharacterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-         //layoutRes = 0;
         switch (viewType) {
             case GRID_VIEW:
                 layoutRes = R.layout.grid_character_layout;
@@ -131,7 +130,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     }
 
     public interface RecyclerViewClickListener {
-       //void recyclerViewListClicked(View v, int position);
        void onCharacterItemClicked(int position, ShowCharacter characterItem, View v);
     }
 
@@ -149,7 +147,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                         listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleIv);
                     else
                         listener.onCharacterItemClicked(getAdapterPosition(), dataSource.get(getLayoutPosition()), titleTv);
-                    //listener.recyclerViewListClicked(v, getLayoutPosition());
                 }
             });
         }
