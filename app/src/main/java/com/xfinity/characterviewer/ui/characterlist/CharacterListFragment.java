@@ -129,11 +129,11 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     }
 
     @Override
-    public void onCharacterItemClicked(int position, ShowCharacter characterItem, View v) {
+    public void onCharacterItemClicked(ShowCharacter characterItem, View v) {
         listener.onItemSelected(characterItem, v);
     }
 
     public interface OnItemSelectedListener {
-        void onItemSelected(Object item, View characterImg);
+        void onItemSelected(ShowCharacter item, View characterImg);
     }
 }

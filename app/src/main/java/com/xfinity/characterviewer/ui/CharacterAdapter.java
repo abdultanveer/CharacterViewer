@@ -113,13 +113,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                     .load(dataSource.get(position).getIcon().getURL())
                     .apply(options)
                     .into(holder.titleIv);
-           ViewCompat.setTransitionName(holder.titleIv, dataSource.get(position).getText().substring(0, 8));
+           ViewCompat.setTransitionName(holder.titleIv, String.valueOf(dataSource.get(position).getText().hashCode()));
         }else if(holder.titleTv!=null){
             List<String> tx;
             ShowCharacter dataBean = dataSource.get(position);
             tx = findTitleDes(dataBean.getText());
             holder.titleTv.setText(tx.get(0));
-            ViewCompat.setTransitionName(holder.titleTv, dataSource.get(position).getText().substring(0, 8));
+            ViewCompat.setTransitionName(holder.titleTv, String.valueOf(dataSource.get(position).getText().hashCode()));
 
         }
     }
@@ -130,7 +130,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
     }
 
     public interface RecyclerViewClickListener {
-       void onCharacterItemClicked(int position, ShowCharacter characterItem, View v);
+       void onCharacterItemClicked(ShowCharacter characterItem, View v);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
@@ -144,9 +144,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                 @Override
                 public void onClick(View v) {
                     if(layoutRes==R.layout.grid_character_layout)
-                        listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleIv);
+                        listener.onCharacterItemClicked(dataSource.get(getLayoutPosition()), titleIv);
                     else
-                        listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleTv);
+                        listener.onCharacterItemClicked(dataSource.get(getLayoutPosition()), titleTv);
                 }
             });
         }

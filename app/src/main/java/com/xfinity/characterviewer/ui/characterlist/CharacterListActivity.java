@@ -97,11 +97,11 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
      *             position
      */
     @Override
-    public void onItemSelected(Object item, View v) {
-        List<String> details = CharacterAdapter.findTitleDes(((ShowCharacter) item).getText());
+    public void onItemSelected(ShowCharacter item, View v) {
+        List<String> details = CharacterAdapter.findTitleDes(item.getText());
         String topicTitle = details.get(0);
         String topicContent = details.get(1);
-        String url = ((ShowCharacter) item).getIcon().getURL();
+        String url =  item.getIcon().getURL();
         if (isTwoPane) {
             CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url,CharacterListActivity.this);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
