@@ -2,12 +2,16 @@ package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -27,21 +31,31 @@ import java.util.List;
  */
 public class CharacterListActivity extends AppCompatActivity implements CharacterListFragment.OnItemSelectedListener{
     public static final String TAG = CharacterListActivity.class.getSimpleName();
+    public static final String TITLE = "title";
+    public static final String CONTENT = "content";
+    public static final String URL = "url";
+    public static final String ANIMATION = "animation";
+
+    public static final String TOGGLE_STATE = "toggle_state";
     Toolbar toolbar;
     TextView appName;
     ToggleButton mToggleButton;
+    private boolean isGrid=false;
     private boolean isTwoPane = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
         setContentView(R.layout.activity_character_list);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         appName = findViewById(R.id.appName);
         appName.setText(BuildConfig.app_name);
         determinePaneLayout();
-
+        if(!isTwoPane && bundle !=null) {
+            isGrid = bundle.getBoolean(TOGGLE_STATE);
+            mToggleButton.setChecked(isGrid);
+        }
         Log.i(TAG, "Check Pane");
     }
 
@@ -50,11 +64,11 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
      * For CharacterListActivity, it does not have an instance of FrameLayout with flDetailContainer as ID here;
      * For the tablet using the large activity_character_list, it has an instance of FrameLayout with flDetailContainer as ID here.
      */
-    private void determinePaneLayout() {
+    private void determinePaneLayout()
+    {
         FrameLayout fragmentItemDetail = findViewById(R.id.flDetailContainer);
         if (fragmentItemDetail != null) {
             isTwoPane = true;
-            CharacterListFragment fragmentItemsList = (CharacterListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentItemList);
         } else {
             mToggleButton = findViewById(R.id.toggle);
             mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -62,33 +76,51 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         EventBus.getDefault().post(true);
+                        isGrid = true;
                     } else {
                         EventBus.getDefault().post(false);
+                        isGrid = false;
                     }
                 }
             });
             CharacterListFragment listFragment = new CharacterListFragment();
+            Bundle b = new Bundle();
+            b.putBoolean(TOGGLE_STATE, isGrid);
+            listFragment.setArguments(b);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainer, listFragment).commit();
         }
     }
 
+    /**
+     * This is the implemented method from interface OnItemSelectedListener in CharacterListFragment.java
+     * @param item the item passed from recyclerViewListClicked(View v, int position); item is the datasource at
+     *             position
+     */
     @Override
-    public void onItemSelected(Object item) {
+    public void onItemSelected(Object item, View v) {
         List<String> details = CharacterAdapter.findTitleDes(((ShowCharacter) item).getText());
         String topicTitle = details.get(0);
         String topicContent = details.get(1);
         String url = ((ShowCharacter) item).getIcon().getURL();
         if (isTwoPane) {
-            CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url, CharacterListActivity.this);
+            CharacterDetailFragment fragmentItem = CharacterDetailFragment.newInstance(topicTitle, topicContent, url,CharacterListActivity.this);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.flDetailContainer, fragmentItem).commit();
         } else {
             Intent i = new Intent(this, CharacterDetailActivity.class);
-            i.putExtra("title", topicTitle);
-            i.putExtra("content", topicContent);
-            i.putExtra("url", url);
-            startActivity(i);
+            i.putExtra(TITLE, topicTitle);
+            i.putExtra(CONTENT, topicContent);
+            i.putExtra(URL, url);
+            i.putExtra(ANIMATION, ViewCompat.getTransitionName(v));
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, v, ViewCompat.getTransitionName(v));
+            startActivity(i, optionsCompat.toBundle());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle state){
+        super.onSaveInstanceState(state);
+        state.putBoolean(TOGGLE_STATE, isGrid);
     }
 }

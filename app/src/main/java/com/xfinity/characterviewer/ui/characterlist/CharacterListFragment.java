@@ -1,17 +1,14 @@
 package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +20,6 @@ import com.xfinity.characterviewer.di.module.CharacterListModule;
 import com.xfinity.characterviewer.model.CharacterSet;
 import com.xfinity.characterviewer.model.ShowCharacter;
 import com.xfinity.characterviewer.ui.CharacterAdapter;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +38,7 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     List<ShowCharacter> dataSource;
     private RecyclerView recyclerView;
     private OnItemSelectedListener listener;
+    private boolean isGrid = false;
 
     @Inject
     CharacterListPresenter mCharacterListPresenter;
@@ -50,20 +47,20 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     CharacterAdapter adapter;
 
     @Inject
-    LinearLayoutManager layoutManager;
+    LinearLayoutManager mLinearLayoutManager;
 
-    @Override
-    public void recyclerViewListClicked(View v, int position) {
-        listener.onItemSelected(dataSource.get(position));
-    }
+    @Inject
+    GridLayoutManager mGridLayoutManager;
 
     @Subscribe
     public void onEvent(Boolean b) {
         for (ShowCharacter topic : dataSource) topic.setUseGrid(b);
+        Log.i("toggle_state", "event "+b);
+        isGrid = b;
         if (b) {
-            this.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            this.recyclerView.setLayoutManager(mGridLayoutManager/*new GridLayoutManager(getActivity(), 2)*/);
         } else {
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            this.recyclerView.setLayoutManager(mLinearLayoutManager/*new LinearLayoutManager(getActivity())*/);
         }
     }
 
@@ -98,7 +95,20 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
         recyclerView = view.findViewById(R.id.rvItems);
         makeRequest();
         EventBus.getDefault().register(this);
+        if(savedInstanceState!=null){
+            isGrid = savedInstanceState.getBoolean("toggle_state");
+            Log.i("listFrag", isGrid+"");
+        }
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null){
+            this.isGrid = savedInstanceState.getBoolean("toggle_state");
+            Log.i("listFragment", "retrieved state " + this.isGrid);
+        }
     }
 
     /**
@@ -115,46 +125,29 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     }
 
     @Override
-    public void setAdapter(CharacterSet characterData) {
+    public void setCharacterAdapter(CharacterSet characterData) {
         this.dataSource = characterData.getShowCharacters();
         adapter.setDataSource(this.dataSource);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
-//    @Override
-//    public void triggerAnimationToDetail(View clickedView) {
-//        // save rect of view in screen coordinated
-//        final Rect viewRect = new Rect();
-//        clickedView.getGlobalVisibleRect(viewRect);
-//
-//        TransitionSet set = new TransitionSet()
-//                .addTransition(new Explode().setEpicenterCallback(new Transition.EpicenterCallback() {
-//                    @Override
-//                    public Rect onGetEpicenter(Transition transition) {
-//                        return viewRect;
-//                    }
-//                }).excludeTarget(clickedView, true))
-//                .addTransition(new Fade().addTarget(clickedView))
-//                .addListener(new Transition.TransitionListenerAdapter() {
-//                    @Override
-//                    public void onTransitionEnd(Transition transition) {
-//                        transition.removeListener(this);
-//                        getActivity().onBackPressed();
-//                    }
-//                });
-//        TransitionManager.beginDelayedTransition(recyclerView, set);
-//
-//        // remove all views from Recycler View
-//        recyclerView.setAdapter(null);
-//    }
-
-    public interface OnItemSelectedListener {
-        void onItemSelected(Object item);
+        recyclerView.setLayoutManager(mLinearLayoutManager);
+        Log.i("grid", isGrid+"");
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onCharacterItemClicked(int position, ShowCharacter characterItem, View v) {
+        listener.onItemSelected(characterItem, v);
+    }
+
+    public interface OnItemSelectedListener {
+        void onItemSelected(Object item, View characterImg);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle state){
+        super.onSaveInstanceState(state);
+        {
+            Log.i("listFragment", "save state " + isGrid);
+        }
+        state.putBoolean("toggle_state", isGrid);
     }
 }
