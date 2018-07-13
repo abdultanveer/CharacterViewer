@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -35,7 +34,6 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
     public static final String CONTENT = "content";
     public static final String URL = "url";
     public static final String ANIMATION = "animation";
-
     public static final String TOGGLE_STATE = "toggle_state";
     Toolbar toolbar;
     TextView appName;
@@ -51,11 +49,13 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
         setSupportActionBar(toolbar);
         appName = findViewById(R.id.appName);
         appName.setText(BuildConfig.app_name);
-        determinePaneLayout();
-        if(!isTwoPane && bundle !=null) {
+        mToggleButton = findViewById(R.id.toggle);
+
+        if(!isTwoPane && bundle !=null && mToggleButton!=null) {
             isGrid = bundle.getBoolean(TOGGLE_STATE);
             mToggleButton.setChecked(isGrid);
         }
+        determinePaneLayout();
         Log.i(TAG, "Check Pane");
     }
 
@@ -70,7 +70,6 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
         if (fragmentItemDetail != null) {
             isTwoPane = true;
         } else {
-            mToggleButton = findViewById(R.id.toggle);
             mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

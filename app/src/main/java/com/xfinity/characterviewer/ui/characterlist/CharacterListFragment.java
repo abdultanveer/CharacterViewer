@@ -2,8 +2,6 @@ package com.xfinity.characterviewer.ui.characterlist;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +33,7 @@ import javax.inject.Inject;
 public class CharacterListFragment extends Fragment implements CharacterAdapter.RecyclerViewClickListener, CharacterListContract.IView
 {
     private static final String TAG = "CharacterListFragment";
+    private static final String TOGGLE_STATE = "toggle_state";
     List<ShowCharacter> dataSource;
     private RecyclerView recyclerView;
     private OnItemSelectedListener listener;
@@ -56,11 +55,10 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     public void onEvent(Boolean b) {
         for (ShowCharacter topic : dataSource) topic.setUseGrid(b);
         Log.i("toggle_state", "event "+b);
-        isGrid = b;
         if (b) {
-            this.recyclerView.setLayoutManager(mGridLayoutManager/*new GridLayoutManager(getActivity(), 2)*/);
+            this.recyclerView.setLayoutManager(mGridLayoutManager);
         } else {
-            this.recyclerView.setLayoutManager(mLinearLayoutManager/*new LinearLayoutManager(getActivity())*/);
+            this.recyclerView.setLayoutManager(mLinearLayoutManager);
         }
     }
 
@@ -93,26 +91,24 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_character_list, container, false);
         recyclerView = view.findViewById(R.id.rvItems);
-        makeRequest();
         EventBus.getDefault().register(this);
-        if(savedInstanceState!=null){
-            isGrid = savedInstanceState.getBoolean("toggle_state");
-            Log.i("listFrag", isGrid+"");
+        if (getArguments() != null){
+            isGrid = getArguments().getBoolean(TOGGLE_STATE);
         }
+        if (isGrid) {
+            this.recyclerView.setLayoutManager(mGridLayoutManager);
+        } else {
+            this.recyclerView.setLayoutManager(mLinearLayoutManager);
+        }
+        makeRequest();
+
         return view;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState!=null){
-            this.isGrid = savedInstanceState.getBoolean("toggle_state");
-            Log.i("listFragment", "retrieved state " + this.isGrid);
-        }
-    }
 
     /**
      * Request Character Data from Presenter
+     *
      */
     void makeRequest() {
         mCharacterListPresenter.requestCharacterData();
@@ -127,10 +123,9 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
     @Override
     public void setCharacterAdapter(CharacterSet characterData) {
         this.dataSource = characterData.getShowCharacters();
+        for (ShowCharacter topic : dataSource) topic.setUseGrid(isGrid);
         adapter.setDataSource(this.dataSource);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(mLinearLayoutManager);
-        Log.i("grid", isGrid+"");
     }
 
     @Override
@@ -140,14 +135,5 @@ public class CharacterListFragment extends Fragment implements CharacterAdapter.
 
     public interface OnItemSelectedListener {
         void onItemSelected(Object item, View characterImg);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle state){
-        super.onSaveInstanceState(state);
-        {
-            Log.i("listFragment", "save state " + isGrid);
-        }
-        state.putBoolean("toggle_state", isGrid);
     }
 }

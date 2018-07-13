@@ -19,7 +19,6 @@ import com.xfinity.characterviewer.di.qualifier.ActivityContext;
 import com.xfinity.characterviewer.di.scope.PerFragment;
 import com.xfinity.characterviewer.model.ShowCharacter;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,12 +63,14 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
 
     /**
      *
-     * @param inputTx returned text containing character title and detail, separated with " - "
+     * @param inputTx returned text containing character title and detail, separated with " - ", some input does not
+     *                have a separated -, treat the whole thing as title and description here
      * @return a list with title and description contained
      */
     public static List<String> findTitleDes(String inputTx) {
         List<String> titleDes = new ArrayList<>();
         int quoteIdx = inputTx.indexOf(" - ");
+        // no title found
         if (quoteIdx < 0) {
             titleDes.add(inputTx);
             titleDes.add(inputTx);
@@ -112,7 +113,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                     .load(dataSource.get(position).getIcon().getURL())
                     .apply(options)
                     .into(holder.titleIv);
-            ViewCompat.setTransitionName(holder.titleIv, dataSource.get(position).getText().substring(0, 8));
+           ViewCompat.setTransitionName(holder.titleIv, dataSource.get(position).getText().substring(0, 8));
         }else if(holder.titleTv!=null){
             List<String> tx;
             ShowCharacter dataBean = dataSource.get(position);
@@ -121,7 +122,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
             ViewCompat.setTransitionName(holder.titleTv, dataSource.get(position).getText().substring(0, 8));
 
         }
-        ViewCompat.setTransitionName(holder.itemView, dataSource.get(position).getText().substring(0, 8));
     }
 
     @Override
@@ -146,7 +146,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
                     if(layoutRes==R.layout.grid_character_layout)
                         listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleIv);
                     else
-                        listener.onCharacterItemClicked(getAdapterPosition(), dataSource.get(getLayoutPosition()), titleTv);
+                        listener.onCharacterItemClicked(getLayoutPosition(), dataSource.get(getLayoutPosition()), titleTv);
                 }
             });
         }
