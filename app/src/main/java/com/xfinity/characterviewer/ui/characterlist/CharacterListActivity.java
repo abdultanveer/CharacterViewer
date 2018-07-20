@@ -20,6 +20,7 @@ import com.xfinity.characterviewer.model.ShowCharacter;
 import com.xfinity.characterviewer.ui.CharacterAdapter;
 import com.xfinity.characterviewer.ui.characterdetail.CharacterDetailActivity;
 import com.xfinity.characterviewer.ui.characterdetail.CharacterDetailFragment;
+import com.xfinity.characterviewer.util.CharacterAnalyzer;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,9 +36,7 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
     public static final String URL = "url";
     public static final String ANIMATION = "animation";
     public static final String TOGGLE_STATE = "toggle_state";
-    Toolbar toolbar;
-    TextView appName;
-    ToggleButton mToggleButton;
+    private ToggleButton mToggleButton;
     private boolean isGrid=false;
     private boolean isTwoPane = false;
 
@@ -45,9 +44,9 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_character_list);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView appName = findViewById(R.id.appName);
         setSupportActionBar(toolbar);
-        appName = findViewById(R.id.appName);
         appName.setText(BuildConfig.app_name);
         mToggleButton = findViewById(R.id.toggle);
 
@@ -98,7 +97,7 @@ public class CharacterListActivity extends AppCompatActivity implements Characte
      */
     @Override
     public void onItemSelected(ShowCharacter item, View v) {
-        List<String> details = CharacterAdapter.findTitleDes(item.getText());
+        List<String> details = CharacterAnalyzer.findTitleDes(item.getText());
         String topicTitle = details.get(0);
         String topicContent = details.get(1);
         String url =  item.getIcon().getURL();

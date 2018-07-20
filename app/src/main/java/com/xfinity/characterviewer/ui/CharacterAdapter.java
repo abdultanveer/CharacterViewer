@@ -18,6 +18,7 @@ import com.xfinity.characterviewer.R;
 import com.xfinity.characterviewer.di.qualifier.ActivityContext;
 import com.xfinity.characterviewer.di.scope.PerFragment;
 import com.xfinity.characterviewer.model.ShowCharacter;
+import com.xfinity.characterviewer.util.CharacterAnalyzer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,26 +62,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         this.mContext = mContext;
     }
 
-    /**
-     *
-     * @param inputTx returned text containing character title and detail, separated with " - ", some input does not
-     *                have a separated -, treat the whole thing as title and description here
-     * @return a list with title and description contained
-     */
-    public static List<String> findTitleDes(String inputTx) {
-        List<String> titleDes = new ArrayList<>();
-        int quoteIdx = inputTx.indexOf(" - ");
-        // no title found
-        if (quoteIdx < 0) {
-            titleDes.add(inputTx);
-            titleDes.add(inputTx);
-        } else {
-            titleDes.add(inputTx.substring(0, quoteIdx));
-            titleDes.add(inputTx.substring(quoteIdx + 3));
-        }
-        return titleDes;
-    }
-
     @NonNull
     @Override
     public CharacterAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -117,7 +98,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.MyVi
         }else if(holder.titleTv!=null){
             List<String> tx;
             ShowCharacter dataBean = dataSource.get(position);
-            tx = findTitleDes(dataBean.getText());
+            tx = CharacterAnalyzer.findTitleDes(dataBean.getText());
             holder.titleTv.setText(tx.get(0));
             ViewCompat.setTransitionName(holder.titleTv, String.valueOf(dataSource.get(position).getText().hashCode()));
 
